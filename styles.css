@@ -1,0 +1,146 @@
+body, html { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+  background: #000000; 
+}
+
+.editorial-section {
+  color: #ffffff;
+  padding: 6rem 5%;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.editorial-title {
+  font-size: clamp(5rem, 18vw, 20rem);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  margin: 0 0 2rem 0;
+  line-height: 0.75;
+  color: #ffffff;
+  cursor: default;
+  /* Ускорил анимацию для более резкого включения */
+  transition: text-shadow 0.4s ease, color 0.4s ease; 
+}
+
+.editorial-title:hover {
+  /* Тонкое, более серое/серебряное свечение (уменьшен радиус размытия) */
+  text-shadow: 
+    0 0 10px rgba(180, 180, 180, 0.6), 
+    0 0 25px rgba(130, 130, 130, 0.4),
+    0 0 40px rgba(100, 100, 100, 0.2);
+  /* Сам текст тоже слегка сереет, чтобы не выбиваться из композиции */
+  color: #e6e6e6; 
+}
+
+/* 2. "The Studio" Transitions */
+.editorial-content {
+  display: flex;
+  gap: 4rem;
+  border-top: 2px solid #333;
+  padding-top: 3rem;
+  margin-bottom: 5rem;
+}
+
+.editorial-meta {
+  flex: 1;
+}
+
+.studio-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.studio-link .arrow {
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.studio-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #ffffff;
+  transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.studio-link:hover .arrow {
+  transform: translateX(8px); /* Pushes the arrow right */
+}
+
+.studio-link:hover::after {
+  width: 100%; /* Expands the underline */
+}
+
+.editorial-desc {
+  flex: 3;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+/* 3. Expanded Editorial Images */
+.editorial-images {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.ed-img {
+  height: 350px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  letter-spacing: 1px;
+  overflow: hidden;
+  /* Editorial grayscale effect */
+  filter: grayscale(100%) brightness(0.8);
+  transition: filter 0.5s ease, transform 0.5s ease, border-color 0.5s ease;
+  cursor: pointer;
+}
+
+.ed-img:hover {
+  /* Reveals true color and slightly scales the image box */
+  filter: grayscale(0%) brightness(1);
+  transform: translateY(-10px);
+  border-color: #666;
+}
+
+/* Utility classes for JS Observer */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 1024px) {
+  .editorial-images { grid-template-columns: repeat(2, 1fr); }
+  .ed-img { height: 250px; }
+}
+
+@media (max-width: 768px) {
+  .editorial-content { flex-direction: column; gap: 2rem; }
+  .editorial-images { grid-template-columns: 1fr; }
+}
